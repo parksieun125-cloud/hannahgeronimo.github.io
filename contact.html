@@ -142,7 +142,7 @@ form.addEventListener("submit", async (e) => {
       form.reset();
       counter.textContent = "0/500";
     } else {
-      say("Sorry, something went wrong. Please email me directly.", false);
+      say("Sorry, something went wrong" + (data.message ? " (" + data.message + ")" : "") + ". Please email me directly.", false);
     }
   } catch {
     say("Network error. Please try again or email me directly.", false);
