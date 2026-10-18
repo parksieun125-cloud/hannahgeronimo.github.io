@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Hannah Louise Geronimo</title>
+<link rel="icon" type="image/png" href="final logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">hannah<br>lou</div>
+  <nav>
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="resume.html">resume</a>
+    <a href="contact.html" class="active">contact</a>
+  </nav>
+</header>
+
+<section class="contact-section">
+
+  <div class="left">
+    <h1>Let's Work<br>Together</h1>
+    <p>Have a project in mind? Let's create something amazing together. I'm always excited to work on new and challenging video editing projects.</p>
+
+    <div class="services">
+      <span>Video editing</span><span>Web design</span><span>Graphic design</span><span>Branding</span>
+    </div>
+
+    <div class="contact-cards">
+      <div class="c-card">
+        <small>Email me at</small>
+        <h2 class="email" id="mailText">hannahlouisegeronimo@gmail.com</h2>
+        <button type="button" class="copy-btn" id="copyBtn">Copy email</button>
+      </div>
+      <div class="c-card">
+        <small>Based in</small>
+        <strong>Valenzuela City, Philippines</strong>
+      </div>
+      <div class="c-card">
+        <small>Find me on</small>
+        <div class="c-links">
+          <a href="https://instagram.com/grompiach" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/share/17jAPRznGj/" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <form class="contact-form" id="contactForm">
+      <h3>Send me a message</h3>
+
+      <input type="hidden" name="_subject" value="New message from your portfolio website">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+      <select name="project_type">
+        <option value="Video editing">Video editing</option>
+        <option value="Web design">Web design</option>
+        <option value="Graphic design">Graphic design</option>
+        <option value="Other">Something else</option>
+      </select>
+      <textarea name="message" id="contactMessage" placeholder="Tell me about your project" maxlength="500" required></textarea>
+      <div class="counter">0/500</div>
+
+      <p class="form-status" id="formStatus" role="status"></p>
+      <button type="submit" id="sendBtn">Send message</button>
+    </form>
+  </div>
+
+</section>
+
+<main></main>
+
+<footer>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="footer-container">
+    <div class="footer-section about-me">
+      <h3>About me</h3>
+      <p>I'm <span class="name">Hannah</span>, learning to become a professional website developer!</p>
+      <p class="decorative-line">.·+·.·◇·.·+·..·+·.·◇·.·+·.</p>
+      <p class="email">hannahlouisegeronimo@gmail.com</p>
+    </div>
+    <div class="footer-section follow-section">
+      <h3>Follow Me!!</h3>
+      <ul class="social-links">
+        <li><a href="https://instagram.com/grompiach" target="_blank" rel="noopener">@grompiach | Instagram</a></li>
+        <li><a href="https://www.facebook.com/share/17jAPRznGj/" target="_blank" rel="noopener">Hannah Louise | Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+const MY_EMAIL = "hannahlouisegeronimo@gmail.com";
+const textarea = document.getElementById("contactMessage");
+const counter = document.querySelector(".counter");
+
+textarea.addEventListener("input", () => {
+  counter.textContent = `${textarea.value.length}/500`;
+});
+
+document.getElementById("copyBtn").addEventListener("click", async (e) => {
+  try {
+    await navigator.clipboard.writeText(MY_EMAIL);
+    e.target.textContent = "Copied!";
+  } catch {
+    e.target.textContent = "Press Ctrl+C to copy";
+  }
+  setTimeout(() => (e.target.textContent = "Copy email"), 2000);
+});
+
+
+const form = document.getElementById("contactForm");
+const statusEl = document.getElementById("formStatus");
+const sendBtn = document.getElementById("sendBtn");
+
+function say(msg, ok) {
+  statusEl.textContent = msg;
+  statusEl.className = "form-status " + (ok ? "ok" : "err");
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Sending...";
+  try {
+    const res = await fetch("https://formsubmit.co/ajax/hannahlouisegeronimo@gmail.com", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    });
+    const data = await res.json();
+    if (data.success === true || data.success === "true") {
+      say("Thank you! Your message was sent. I'll get back to you soon.", true);
+      form.reset();
+      counter.textContent = "0/500";
+    } else {
+      say("Sorry, something went wrong. Please email me directly.", false);
+    }
+  } catch {
+    say("Network error. Please try again or email me directly.", false);
+  }
+  sendBtn.disabled = false;
+  sendBtn.textContent = "Send message";
+});
+</script>
+</body>
+</html>

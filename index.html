@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hannah Louise Geronimo | Portfolio</title>
+<meta name="description" content="Portfolio of Hannah Louise Geronimo, IT student learning website development, video editing and design.">
+<link rel="icon" type="image/png" href="final logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">hannah<br>lou</div>
+  <nav>
+    <a href="index.html" class="active">home</a>
+    <a href="about.html">about</a>
+    <a href="resume.html">resume</a>
+    <a href="contact.html">contact</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="image-section">
+    <img src="geronimo.jpg" alt="Hannah Louise Geronimo">
+  </div>
+
+  <div class="text-section">
+    <h1>Hannah Louise <br>Geronimo</h1>
+    <p class="subtitle">Learning to become a professional <span>Website Developer</span></p>
+    <p class="hero-intro">
+      3rd year IT student building clean, responsive websites, and editing videos and designs on the side.
+    </p>
+
+    <div class="chips">
+      <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Java</span>
+      <span>SQL</span><span>Video Editing</span><span>Branding</span>
+    </div>
+
+    <div class="nav-links">
+      <a href="resume.html#works">View my work</a>
+      <a href="about.html">About me</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</div>
+
+<section class="facts">
+  <div class="fact"><strong>BSIT, 3rd year</strong><span>Pamantasan ng Lungsod ng Valenzuela</span></div>
+  <div class="fact"><strong>Valenzuela City</strong><span>Metro Manila, Philippines</span></div>
+  <div class="fact"><strong>Open for projects</strong><span>Video editing and web design</span></div>
+</section>
+
+<section class="home-works">
+  <h2>SELECTED WORK</h2>
+  <div class="home-grid">
+    <a class="home-card" href="https://hotfireco.online/geronimo/" target="_blank" rel="noopener">
+      <img src="polio.png" alt="Portfolio Website">
+      <div>
+        <h3>Portfolio Website</h3>
+        <p>Responsive portfolio with animations and an interactive interface.</p>
+      </div>
+    </a>
+    <a class="home-card" href="https://hotfireco.online" target="_blank" rel="noopener">
+      <img src="hotfire.png" alt="Hotfire Co">
+      <div>
+        <h3>Hotfire Co</h3>
+        <p>Website project built with HTML, CSS and JavaScript.</p>
+      </div>
+    </a>
+  </div>
+  <a class="see-all" href="resume.html#works">See all my work</a>
+</section>
+
+<main></main>
+
+<footer>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="footer-container">
+    <div class="footer-section about-me">
+      <h3>About me</h3>
+      <p>I'm <span class="name">Hannah</span>, learning to become a professional website developer!</p>
+      <p class="decorative-line">.·+·.·◇·.·+·..·+·.·◇·.·+·.</p>
+      <p class="email">hannahlouisegeronimo@gmail.com</p>
+    </div>
+    <div class="footer-section follow-section">
+      <h3>Follow Me!!</h3>
+      <ul class="social-links">
+        <li><a href="https://instagram.com/grompiach" target="_blank" rel="noopener">@grompiach | Instagram</a></li>
+        <li><a href="https://www.facebook.com/share/17jAPRznGj/" target="_blank" rel="noopener">Hannah Louise | Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+const roleText = document.querySelector(".subtitle span");
+if (roleText) {
+  const words = ["Website Developer", "IT Student", "Creative Designer", "Future Programmer"];
+  let w = 0, c = 0, deleting = false;
+  (function type() {
+    const word = words[w];
+    roleText.textContent = word.substring(0, deleting ? c-- : c++);
+    let speed = deleting ? 60 : 120;
+    if (!deleting && c === word.length + 1) { speed = 1400; deleting = true; c = word.length; }
+    else if (deleting && c < 0) { deleting = false; c = 0; w = (w + 1) % words.length; }
+    setTimeout(type, speed);
+  })();
+}
+
+const topButton = document.createElement("button");
+topButton.textContent = "↑";
+topButton.setAttribute("aria-label", "Back to top");
+topButton.className = "to-top";
+document.body.appendChild(topButton);
+window.addEventListener("scroll", () => {
+  topButton.classList.toggle("show", window.scrollY > 300);
+});
+topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+</script>
+</body>
+</html>
