@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <title>Hannah Louise Geronimo | Portfolio</title>
 <meta name="description" content="Portfolio of Hannah Louise Geronimo, IT student learning website development, video editing and design.">
 <link rel="icon" type="image/png" href="final logo.png">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -98,15 +98,30 @@
 const roleText = document.querySelector(".subtitle span");
 if (roleText) {
   const words = ["Website Developer", "IT Student", "Creative Designer", "Future Programmer"];
-  let w = 0, c = 0, deleting = false;
-  (function type() {
+  const mobileQuery = window.matchMedia("(max-width:768px), (hover:none)");
+  let w = 0, c = 0, deleting = false, running = false;
+
+  function type() {
+    if (mobileQuery.matches) {
+      roleText.textContent = "";
+      running = false;
+      return;
+    }
+    running = true;
     const word = words[w];
     roleText.textContent = word.substring(0, deleting ? c-- : c++);
     let speed = deleting ? 60 : 120;
     if (!deleting && c === word.length + 1) { speed = 1400; deleting = true; c = word.length; }
     else if (deleting && c < 0) { deleting = false; c = 0; w = (w + 1) % words.length; }
     setTimeout(type, speed);
-  })();
+  }
+
+  mobileQuery.addEventListener("change", () => {
+    if (mobileQuery.matches) roleText.textContent = "";
+    else if (!running) { w = 0; c = 0; deleting = false; type(); }
+  });
+
+  type();
 }
 
 const topButton = document.createElement("button");
